@@ -1,6 +1,6 @@
 import useTitle from '../../hooks/useTitle'
 import { useGetPicturesPrivateQuery } from './picturesApiSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import PulseLoader from 'react-spinners/PulseLoader'
 import Picture from './Picture'
 
@@ -39,7 +39,7 @@ const PicturesListPrivate = () => {
     )
   }
 
-  if (isSuccess) content = <Picture pictures={pictures} />
+  if (isSuccess) content = <Picture pictures={pictures} description={input} />
 
   return content
 }

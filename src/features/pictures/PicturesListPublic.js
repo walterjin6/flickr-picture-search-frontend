@@ -35,7 +35,7 @@ const PicturesListPublic = () => {
     )
   }
 
-  if (isSuccess) content = <Picture pictures={pictures} />
+  if (isSuccess) content = <Picture pictures={pictures} description={'random pictures'} />
 
   return content
 }

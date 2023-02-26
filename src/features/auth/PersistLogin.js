@@ -7,7 +7,6 @@ import { selectCurrentToken, isLoggedInOn, isLoggedInOff } from './authSlice'
 import PulseLoader from 'react-spinners/PulseLoader'
 
 const PersistLogin = () => {
-
   const dispatch = useDispatch()
   const [persist] = usePersist()
   const token = useSelector(selectCurrentToken)
@@ -15,23 +14,19 @@ const PersistLogin = () => {
 
   const [trueSuccess, setTrueSuccess] = useState(false)
 
-  const [refresh, { isUninitialized, isLoading, isSuccess, isError}] =
+  const [refresh, { isUninitialized, isLoading, isSuccess, isError }] =
     useRefreshMutation()
 
   useEffect(() => {
     if (effectRan.current === true || process.env.NODE_ENV !== 'development') {
-        const verifyRefreshToken = async () => {
+      const verifyRefreshToken = async () => {
         console.log('verifying refresh token')
         try {
-          //const response =
           await refresh()
-          //const { accessToken } = response.data
           setTrueSuccess(true)
           dispatch(isLoggedInOn())
-
         } catch (err) {
           console.error(err)
-          dispatch(isLoggedInOff())
         }
       }
 
@@ -39,8 +34,6 @@ const PersistLogin = () => {
     }
 
     return () => (effectRan.current = true)
-
-    // eslint-disable-next-line
   }, [])
 
   let content
@@ -55,16 +48,16 @@ const PersistLogin = () => {
   } else if (isError) {
     //persist: yes, token: no
     console.log('error')
+    dispatch(isLoggedInOff())
+    content = <Outlet />
   } else if (isSuccess && trueSuccess) {
     //persist: yes, token: yes
     console.log('success')
-
     content = <Outlet />
   } else if (token && isUninitialized) {
     //persist: yes, token: yes
     console.log('token and uninit')
     console.log(isUninitialized)
-
     content = <Outlet />
   }
 

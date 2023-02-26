@@ -42,7 +42,7 @@ const Login = () => {
         setUsername('')
         setPassword('')
         navigate('/')
-        console.log("扭扭捏捏你")
+        console.log('扭扭捏捏你')
       } catch (err) {
         if (!err.status) {
           setErrMsg('No Server Response')
@@ -68,9 +68,12 @@ const Login = () => {
   const inputErrClass = 'w-full text-xs font-bold text-red-700'
   let content
 
-  if (isLoading) {
-    content = <PulseLoader color={'#808080'} size={100} />
-  }
+  if (isLoading)
+    return (
+      <div className='w-full h-screen flex justify-center items-center '>
+        <PulseLoader color={'#808080'} size={100} />
+      </div>
+    )
 
   const validateForm = () => {
     let valid = true

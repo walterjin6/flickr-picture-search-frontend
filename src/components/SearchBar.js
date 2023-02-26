@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setInput } from '../features/pictures/picturesSlice'
+import { setTag } from '../features/pictures/picturesSlice'
 import { useNavigate } from 'react-router-dom'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
-  const [inputWord, setInputWord] = useState('')
-  const handleChange = (e) => setInputWord(e.target.value)
+  const [inputWord, setTagWord] = useState('')
+  const handleChange = (e) => setTagWord(e.target.value)
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') search()
   }
@@ -16,10 +16,10 @@ const SearchBar = () => {
     if (!isLoggedIn) {
       navigate('/login')
       if (inputWord) {
-        dispatch(setInput(inputWord))
-      } 
+        dispatch(setTag(inputWord))
+      }
     } else if (inputWord) {
-      dispatch(setInput(inputWord))
+      dispatch(setTag(inputWord))
     } else {
       alert('Please input search tag keyword')
     }
@@ -51,8 +51,8 @@ const SearchBar = () => {
         <input
           type='search'
           id='default-search'
-          className='block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-          placeholder='Type search tag keyword here...'
+          className='block p-4 pl-10 w-full text-base font-bold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+          placeholder=' Type  search  tag  keyword  here ...'
           value={inputWord}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

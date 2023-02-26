@@ -25,7 +25,7 @@ Build APP: npm run build
 ## Features
 
 1.  Input validation on login and search
-2.  OAuth 2.0: use refreash token, Access token, JWT 
+2.  OAuth 2.0: use refresh token, Access token, JWT Authentication
 3.  Persist login by select "trust this device" on login form
 4.  View public pictures via public API without login needed
 5.  View private pictures via private API with login needed

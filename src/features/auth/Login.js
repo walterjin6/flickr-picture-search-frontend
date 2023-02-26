@@ -15,6 +15,10 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errMsg, setErrMsg] = useState('')
+  const [errors, setErrors] = useState({
+    username: '',
+    password: '',
+  })
   const [persist, setPersist] = usePersist()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -30,45 +34,72 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-      const { accessToken } = await login({ username, password }).unwrap()
-      dispatch(setCredentials({ accessToken }))
-      dispatch(isLoggedInOn())
-      setUsername('')
-      setPassword('')
-      navigate('/')
-    } catch (err) {
-      if (!err.status) {
-        setErrMsg('No Server Response')
-      } else if (err.status === 400) {
-        setErrMsg('Missing Username or Password')
-      } else if (err.status === 401) {
-        setErrMsg('Unauthorized')
-      } else {
-        setErrMsg(err.data?.message || 'Login Error')
+    if (validateForm()) {
+      try {
+        const { accessToken } = await login({ username, password }).unwrap()
+        dispatch(setCredentials({ accessToken }))
+        dispatch(isLoggedInOn())
+        setUsername('')
+        setPassword('')
+        navigate('/')
+      } catch (err) {
+        if (!err.status) {
+          setErrMsg('No Server Response')
+        } else if (err.status === 400) {
+          setErrMsg('Missing Username or Password')
+        } else if (err.status === 401) {
+          setErrMsg('Unauthorized')
+        } else {
+          setErrMsg(err.data?.message || 'Login Error')
+        }
+        errRef.current.focus()
+        dispatch(isLoggedInOff())
       }
-      errRef.current.focus()
-      dispatch(isLoggedInOff())
     }
   }
 
   const handleUserInput = (e) => setUsername(e.target.value)
   const handlePwdInput = (e) => setPassword(e.target.value)
   const handleToggle = () => setPersist((prev) => !prev)
-  const errClass = `w-full flex justify-center items-center text-xl text-red-700 ${errMsg ? 'block' : 'hide'} `
+  const errClass = `w-full flex justify-center items-center text-xl font-bold  text-red-700 ${
+    errMsg ? 'block' : 'hide'
+  } `
+  const inputErrClass = 'w-full text-xs font-bold text-red-700'
   let content
 
   if (isLoading) {
     content = <PulseLoader color={'#808080'} size={100} />
   }
 
+  const validateForm = () => {
+    let valid = true
+    const errorsCopy = { ...errors }
+    if (!username) {
+      errorsCopy.username = 'Username is required'
+      valid = false
+    } else {
+      errorsCopy.username = ''
+    }
+    if (!password) {
+      errorsCopy.password = 'Password is required'
+      valid = false
+    } else if (password.length < 6) {
+      errorsCopy.password = 'Password must be at least 6 characters'
+      valid = false
+    } else {
+      errorsCopy.password = ''
+    }
+
+    setErrors(errorsCopy)
+    return valid
+  }
   content = (
     <div className='w-full h-screen mt-12'>
       <section className='flex flex-col items-center justify-around px-6 pt-6 mx-auto  lg:py-0'>
         <main className='login'>
           <header className='flex justify-between text-center w-full'>
             <h1 className='text-xl font-bold w-11/12 '>User Login</h1>
-            <div className='w-1/12 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white'>
+            <div className='w-1/12 text-gray-600 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white'>
               <Link to='/'>
                 <svg
                   aria-hidden='true'
@@ -95,7 +126,7 @@ const Login = () => {
             className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col'
             onSubmit={handleSubmit}
           >
-            <label htmlFor='username' className='py-2'>
+            <label htmlFor='username' className=' font-bold py-2'>
               Username:
             </label>
             <input
@@ -109,8 +140,10 @@ const Login = () => {
               aria-label='username'
               required
             />
-
-            <label htmlFor='password' className='py-2'>
+            {errors.username && (
+              <p className={inputErrClass}>{errors.username}</p>
+            )}
+            <label htmlFor='password' className='font-bold py-2'>
               Password:
             </label>
             <input
@@ -123,18 +156,21 @@ const Login = () => {
               aria-label='password'
               required
             />
-            <div className='flex justify-between gap-10'>
+            {errors.password && (
+              <p className={inputErrClass}>{errors.password}</p>
+            )}
+            <div className='flex justify-between mt-4 gap-10 items-center'>
               <button
-                className='w-1/2 px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900'
+                className='w-1/2 px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-900'
                 type='submit'
                 name='submit'
               >
                 Sign In
               </button>
-              <label htmlFor='persist' className='form__persist'>
+              <label htmlFor='persist' className='text-sm font-bold'>
                 <input
                   type='checkbox'
-                  className='form__checkbox'
+                  className=''
                   id='persist'
                   onChange={handleToggle}
                   checked={persist}

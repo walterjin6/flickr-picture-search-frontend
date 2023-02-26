@@ -5,14 +5,14 @@ import PulseLoader from 'react-spinners/PulseLoader'
 import Picture from './Picture'
 
 const PicturesListPrivate = () => {
-  const input = useSelector((state) => state.pictures.input)
+  const tag = useSelector((state) => state.pictures.tag)
   const {
     data: pictures,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetPicturesPrivateQuery( { input }  )
+  } = useGetPicturesPrivateQuery(tag)
 
   let content
   useTitle('Search Pictures')
@@ -33,7 +33,7 @@ const PicturesListPrivate = () => {
     )
   }
 
-  if (isSuccess) content = <Picture pictures={pictures} description={input} />
+  if (isSuccess) content = <Picture pictures={pictures} description={tag} />
 
   return content
 }

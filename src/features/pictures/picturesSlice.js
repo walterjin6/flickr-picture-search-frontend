@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  input: 'sun',
+  tag: 'sun',
 }
 const picturesSlice = createSlice({
   name: 'status',
   initialState,
   reducers: {
-    setInput(state, action) {
-      state.input = action.payload
+    setTag(state, action) {
+      state.tag = action.payload
     },
   },
 })
 
-export const { setInput } = picturesSlice.actions
+export const { setTag } = picturesSlice.actions
 
 export default picturesSlice.reducer

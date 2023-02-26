@@ -1,8 +1,8 @@
 
 const Picture = ({ pictures, description }) => {
   return (
-    <section className=' h-full sm:h-[2000px]  md:h-[1000px]  overflow-hidden'>
-      <section className='flex flex-col flex-wrap  items-center gap-2 px-2 py-2 h-full sm:h-[2500px]  md:h-[1500px]  overflow-hidden'>
+    <div className='sm:h-[160rem] md:h-[80rem] overflow-hidden '>
+      <div className='flex flex-col flex-wrap  items-center gap-2 px-2 py-1 h-full sm:h-[300rem]  md:h-[200rem]  '>
         {pictures.map((itm) => (
           <img
             className='object-fill w-10/12 sm:w-1/2 md:w-1/4 rounded'
@@ -11,8 +11,8 @@ const Picture = ({ pictures, description }) => {
             alt={`${description} - ${itm.id}`}
           />
         ))}
-      </section>
-    </section>
+      </div>
+    </div>
   )
 }
 export default Picture

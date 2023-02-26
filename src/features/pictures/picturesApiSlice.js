@@ -3,7 +3,7 @@ import { apiSlice } from '../../app/api/apiSlice'
 export const picturesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPicturesPublic: builder.query({
-      query: (input) => ({
+      query: () => ({
         url: `/picture-public`,
         method: 'GET',
         mode: 'cors',
@@ -18,10 +18,9 @@ export const picturesApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['getPicturesPublic'],
     }),
     getPicturesPrivate: builder.query({
-      query: (data) => ({
-        url: `/picture-private`,
-        method: 'POST',
-        body: data,
+      query: (tag) => ({
+        url: `/picture-private/${tag}`,
+        method: 'GET',
         mode: 'cors',
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError

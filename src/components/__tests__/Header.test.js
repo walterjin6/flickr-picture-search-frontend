@@ -1,5 +1,5 @@
 import Header from '../Header'
-import { renderWithProviders } from '../../test/test-utils'
+import { renderWithProviders } from '../../tests/test-utils'
 
 it('Header renders correctly', () => {
   const { asFragment } = renderWithProviders(<Header />)

@@ -6,6 +6,9 @@ import picturesReducer from "../features/pictures/picturesSlice";
 import { apiSlice } from "../app/api/apiSlice";
 import authReducer from '../features/auth/authSlice'
 import { BrowserRouter } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom' 
+const history = createMemoryHistory()
 
 export function renderWithProviders(
   ui,
@@ -28,7 +31,9 @@ export function renderWithProviders(
   function Wrapper({ children }) {
     return (
       <Provider store={store}>
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter history={history}>
+         {children}
+        </BrowserRouter>
       </Provider>
     )
   }

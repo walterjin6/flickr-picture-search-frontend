@@ -1,5 +1,5 @@
 import SearchBar from '../SearchBar'
-import { renderWithProviders } from '../../test/test-utils'
+import { renderWithProviders } from '../../tests/test-utils'
 
 it('SearchBar renders correctly', () => {
   const { asFragment } = renderWithProviders(<SearchBar />)

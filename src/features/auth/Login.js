@@ -42,6 +42,7 @@ const Login = () => {
         setUsername('')
         setPassword('')
         navigate('/')
+        console.log("扭扭捏捏你")
       } catch (err) {
         if (!err.status) {
           setErrMsg('No Server Response')

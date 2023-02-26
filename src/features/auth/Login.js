@@ -63,7 +63,7 @@ const Login = () => {
   }
 
   content = (
-    <div className='w-full h-screen flex justify-center items-center '>
+    <div className='w-full h-screen mt-12'>
       <section className='flex flex-col items-center justify-around px-6 pt-6 mx-auto  lg:py-0'>
         <main className='login'>
           <header className='flex justify-between text-center w-full'>

@@ -12,13 +12,7 @@ const PicturesListPrivate = () => {
     isSuccess,
     isError,
     error,
-  } = useGetPicturesPrivateQuery(
-    { input },
-    {
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-    }
-  )
+  } = useGetPicturesPrivateQuery( { input }  )
 
   let content
   useTitle('Search Pictures')

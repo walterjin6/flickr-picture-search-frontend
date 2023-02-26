@@ -18,10 +18,10 @@ export const picturesApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['getPicturesPublic'],
     }),
     getPicturesPrivate: builder.query({
-      query: (input) => ({
+      query: (data) => ({
         url: `/picturePrivate`,
         method: 'POST',
-        body: { input },
+        body: data,
         mode: 'cors',
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError

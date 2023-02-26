@@ -1,14 +1,14 @@
 import useAuth from '../hooks/useAuth'
 import SearchBar from './SearchBar'
 import { FaUser } from 'react-icons/fa'
-
+import { Link } from 'react-router-dom'
 const Header = () => {
   const { username } = useAuth()
 
   const content = (
     <header className='flex justify-between items-center text-center  gap-4 px-4 py-2 h-20'>
       <svg
-        className='w-1/12 h-full item-center text-center '
+        className='w-1/12 h-full items-center text-center '
         xmlns='http://www.w3.org/2000/svg'
         height='800'
         width='1200'
@@ -27,8 +27,13 @@ const Header = () => {
       </svg>
       <SearchBar />
       <div className='flex gap-1 text-xl text-gray-900 justify-center items-center '>
-        <FaUser />
-        <span className=''>{username}</span>
+        {username ? (
+          <span className='text-lg text-blue-600  font-bold'>{username}</span>
+        ) : (
+          <Link to='/login'>
+            <FaUser />
+          </Link>
+        )}
       </div>
     </header>
   )

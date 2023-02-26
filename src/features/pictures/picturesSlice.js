@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  input: '',
+  input: 'sun',
 }
 const picturesSlice = createSlice({
   name: 'status',

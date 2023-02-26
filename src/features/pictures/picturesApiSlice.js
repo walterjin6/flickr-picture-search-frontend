@@ -4,7 +4,7 @@ export const picturesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPicturesPublic: builder.query({
       query: (input) => ({
-        url: `/picturePublic`,
+        url: `/picture-public`,
         method: 'GET',
         mode: 'cors',
         validateStatus: (response, result) => {
@@ -19,7 +19,7 @@ export const picturesApiSlice = apiSlice.injectEndpoints({
     }),
     getPicturesPrivate: builder.query({
       query: (data) => ({
-        url: `/picturePrivate`,
+        url: `/picture-private`,
         method: 'POST',
         body: data,
         mode: 'cors',

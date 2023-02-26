@@ -13,9 +13,15 @@ const SearchBar = () => {
     if (e.key === 'Enter') search()
   }
   const search = () => {
-    dispatch(setInput(inputWord))
     if (!isLoggedIn) {
       navigate('/login')
+      if (inputWord) {
+        dispatch(setInput(inputWord))
+      } 
+    } else if (inputWord) {
+      dispatch(setInput(inputWord))
+    } else {
+      alert('Please input search tag keyword')
     }
   }
 

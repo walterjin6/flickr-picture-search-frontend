@@ -8,8 +8,6 @@ import useTitle from '../../hooks/useTitle'
 import PulseLoader from 'react-spinners/PulseLoader'
 
 const Login = () => {
-  useTitle('User Login')
-
   const userRef = useRef()
   const errRef = useRef()
   const [username, setUsername] = useState('')
@@ -32,6 +30,8 @@ const Login = () => {
     setErrMsg('')
   }, [username, password])
 
+  useTitle('User Login')
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (validateForm()) {
@@ -42,14 +42,13 @@ const Login = () => {
         setUsername('')
         setPassword('')
         navigate('/')
-        console.log('扭扭捏捏你')
       } catch (err) {
         if (!err.status) {
           setErrMsg('No Server Response')
         } else if (err.status === 400) {
           setErrMsg('Missing Username or Password')
         } else if (err.status === 401) {
-          setErrMsg('Unauthorized')
+          setErrMsg('Wrong Username or Password')
         } else {
           setErrMsg(err.data?.message || 'Login Error')
         }

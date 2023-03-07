@@ -31,6 +31,7 @@ Build project: npm run build
 5.  View private pictures via private API with login needed
 6.  Use 'Redux Toolkit query' to manage global state and cache
 7.  Use MSW (Mock Service Worker) to mock APIs and web requests
+8.  Use 'custom hooks' for encapsulation, abstraction, and reuse
 
 ## Main Tech Stacks used
 

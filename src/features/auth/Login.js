@@ -32,12 +32,10 @@ const Login = () => {
 
   useTitle('User Login')
   const handleGuestPortal = async (e) => {
-    setUsername('admin')
-    setPassword('!Hh12345')
     e.preventDefault()
 
     try {
-      const { accessToken } = await login({ username, password }).unwrap()
+      const { accessToken } = await login({ usename:'admin', password:'!Hh12345' }).unwrap()
       dispatch(setCredentials({ accessToken }))
       dispatch(isLoggedInOn())
       setUsername('')
@@ -205,7 +203,7 @@ const Login = () => {
                 Trust This Device
               </label>
             </div>
-            <span className='py-4 font-bold'>Not registered? Use guest portal below for login-free</span>
+            <span className='py-4 font-bold'>Not registered? Click guest portal below for login-free</span>
             <button
               type='submit'
               className='w-full inline-block px-7 py-3 bg-yellow-600 text-white font-bold text-xl leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'

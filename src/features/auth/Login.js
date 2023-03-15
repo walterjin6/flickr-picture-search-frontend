@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault()
 
     try {
-      const { accessToken } = await login({ usename:'admin', password:'!Hh12345' }).unwrap()
+      const { accessToken } = await login({ username:'admin', password:'!Hh12345' }).unwrap()
       dispatch(setCredentials({ accessToken }))
       dispatch(isLoggedInOn())
       setUsername('')

@@ -2,15 +2,19 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:3500',
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-        const token = getState().auth.token
-        if (token) {
-            headers.set("authorization", `Bearer ${token}`)
-        }
-        return headers
+  baseUrl:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3500'
+      : 'https://flickrpicturesearch-api.onrender.com',
+  credentials: 'same-origin',
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.token
+    if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+        headers.set('Content-Type', 'application/json')
     }
+    return headers
+  },
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {

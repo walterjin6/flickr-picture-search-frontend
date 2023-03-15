@@ -31,7 +31,32 @@ const Login = () => {
   }, [username, password])
 
   useTitle('User Login')
-  
+  const handleGuestPortal = async (e) => {
+    setUsername('admin')
+    setPassword('!Hh12345')
+    e.preventDefault()
+
+    try {
+      const { accessToken } = await login({ username, password }).unwrap()
+      dispatch(setCredentials({ accessToken }))
+      dispatch(isLoggedInOn())
+      setUsername('')
+      setPassword('')
+      navigate('/')
+    } catch (err) {
+      if (!err.status) {
+        setErrMsg('No Server Response')
+      } else if (err.status === 400) {
+        setErrMsg('Missing Username or Password')
+      } else if (err.status === 401) {
+        setErrMsg('Wrong Username or Password')
+      } else {
+        setErrMsg(err.data?.message || 'Login Error')
+      }
+      errRef.current.focus()
+      dispatch(isLoggedInOff())
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (validateForm()) {
@@ -120,7 +145,15 @@ const Login = () => {
               </Link>
             </div>
           </header>
-
+          <button
+            type='submit'
+            className='w-full inline-block px-7 py-3 bg-yellow-600 text-white font-bold text-xl leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+            data-mdb-ripple='true'
+            data-mdb-ripple-color='light'
+            onClick={handleGuestPortal}
+          >
+            Guest Portal - Login Free
+          </button>
           <p ref={errRef} className={errClass} aria-live='assertive'>
             {errMsg}
           </p>
